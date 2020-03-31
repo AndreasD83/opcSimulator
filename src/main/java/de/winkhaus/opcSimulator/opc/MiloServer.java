@@ -134,7 +134,7 @@ public class MiloServer {
 
         OpcUaServerConfig serverConfig = OpcUaServerConfig.builder()
                 .setApplicationUri(applicationUri)
-                .setApplicationName(LocalizedText.english(String.format("machine {}","4711")))
+                .setApplicationName(LocalizedText.english(String.format("machine {}",machine)))
                 .setEndpoints(endpointConfigurations)
                 .setBuildInfo(
                         new BuildInfo(
@@ -197,7 +197,7 @@ public class MiloServer {
                         EndpointConfiguration.newBuilder()
                                 .setBindAddress(bindAddress)
                                 .setHostname(hostname)
-                                .setPath(String.format("/%s", machine.getMachineId()))
+                                .setPath(String.format("/server"))
                                 .setCertificate(certificate)
                                 .addTokenPolicies(
                                         USER_TOKEN_POLICY_ANONYMOUS,
@@ -232,7 +232,7 @@ public class MiloServer {
 
                 EndpointConfiguration.Builder discoveryBuilder =
                         builder.copy()
-                                .setPath("/milo/discovery")
+                                .setPath("/server/discovery")
                                 .setSecurityPolicy(SecurityPolicy.None)
                                 .setSecurityMode(MessageSecurityMode.None);
 

@@ -17,11 +17,8 @@ import java.util.List;
 @PropertySource("application.properties")
 public class MachineBuilderService {
 
-    @Value("#{'${machines}'.split(',')}")
-    private List<String> machines = Arrays.asList(new String[]{"4711", "4712", "4713", "beckhoff-1"});
-
     @Autowired
-    public MachineBuilderService(MachineRepository repository){
-        machines.forEach(machine -> repository.save(new Machine(machine) ));
+    public MachineBuilderService(MachineRepository repository, ConfigProperties properties){
+        properties.getMachines().forEach(machine -> repository.save(new Machine(machine) ));
     }
 }

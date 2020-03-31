@@ -38,6 +38,7 @@ import static org.eclipse.milo.opcua.stack.core.types.builtin.unsigned.Unsigned.
 import static org.eclipse.milo.opcua.stack.core.types.builtin.unsigned.Unsigned.ushort;
 
 public class SpsMuensterNamespace extends ManagedNamespace {
+
     private final Logger logger = LoggerFactory.getLogger(getClass());
     private final SubscriptionModel subscriptionModel;
 
@@ -46,6 +47,7 @@ public class SpsMuensterNamespace extends ManagedNamespace {
     static final String COUNTER = "pieces";
     static final String MESSAGE = "messageId";
     static final String ACTIVE = "active";
+    private static final String MACHINEID = "machine";
 
     private MachineRepository repository;
     private String machineId;
@@ -145,11 +147,20 @@ public class SpsMuensterNamespace extends ManagedNamespace {
                 ValueLoggingDelegate::new
         )));
 
-        rootNode.addOrganizes(node(MESSAGE, Identifiers.Boolean,  AttributeDelegateChain.create(
+        rootNode.addOrganizes(node(MESSAGE, Identifiers.Integer,  AttributeDelegateChain.create(
                 new AttributeDelegate() {
                     @Override
                     public DataValue getValue(AttributeContext context, VariableNode node) throws UaException {
                         return new DataValue(new Variant(repository.findByMachineId(machineId).getMessage().getNumber()));
+                    }
+                },
+                ValueLoggingDelegate::new
+        )));
+        rootNode.addOrganizes(node(MACHINEID, Identifiers.String,  AttributeDelegateChain.create(
+                new AttributeDelegate() {
+                    @Override
+                    public DataValue getValue(AttributeContext context, VariableNode node) throws UaException {
+                        return new DataValue(new Variant(machineId));
                     }
                 },
                 ValueLoggingDelegate::new
