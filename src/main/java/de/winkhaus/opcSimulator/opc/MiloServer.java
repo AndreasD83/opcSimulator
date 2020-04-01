@@ -43,6 +43,8 @@ import static org.eclipse.milo.opcua.sdk.server.api.config.OpcUaServerConfig.*;
 
 @Service
 public class MiloServer {
+    private static String SUBURL = "server";
+    private static String SUBURLDISCOVERY = "discovery";
     static {
         // Required for SecurityPolicy.Aes256_Sha256_RsaPss
         Security.addProvider(new BouncyCastleProvider());
@@ -138,9 +140,9 @@ public class MiloServer {
                 .setEndpoints(endpointConfigurations)
                 .setBuildInfo(
                         new BuildInfo(
-                                "urn:eclipse:milo:example-server",
-                                "eclipse",
-                                "eclipse milo example server",
+                                "urn:eclipse:milo:opc",
+                                "winkhaus",
+                                "eclipse milo opc server",
                                 OpcUaServer.SDK_VERSION,
                                 "", DateTime.now()))
                 .setCertificateManager(certificateManager)
@@ -150,7 +152,7 @@ public class MiloServer {
                 .setHttpsCertificate(httpsCertificate)
                 .setIdentityValidator(new CompositeValidator(identityValidator,
                         x509IdentityValidator))
-                .setProductUri("urn:eclipse:milo:example-server")
+                .setProductUri("urn:eclipse:milo:opc")
                 .build();
 
         OpcUaServer server = new OpcUaServer(serverConfig);
@@ -197,7 +199,7 @@ public class MiloServer {
                         EndpointConfiguration.newBuilder()
                                 .setBindAddress(bindAddress)
                                 .setHostname(hostname)
-                                .setPath(String.format("/server"))
+                                .setPath(String.format("/%s", SUBURL))
                                 .setCertificate(certificate)
                                 .addTokenPolicies(
                                         USER_TOKEN_POLICY_ANONYMOUS,
@@ -232,7 +234,7 @@ public class MiloServer {
 
                 EndpointConfiguration.Builder discoveryBuilder =
                         builder.copy()
-                                .setPath("/server/discovery")
+                                .setPath(String.format("/%s/%s", SUBURL, SUBURLDISCOVERY))
                                 .setSecurityPolicy(SecurityPolicy.None)
                                 .setSecurityMode(MessageSecurityMode.None);
 

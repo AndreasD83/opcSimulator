@@ -23,26 +23,19 @@ import org.eclipse.milo.opcua.stack.core.UaException;
 import org.eclipse.milo.opcua.stack.core.types.builtin.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
-import java.math.BigInteger;
 import java.util.List;
-import java.util.Random;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 import static org.eclipse.milo.opcua.stack.core.types.builtin.unsigned.Unsigned.ubyte;
-import static org.eclipse.milo.opcua.stack.core.types.builtin.unsigned.Unsigned.ushort;
 
 public class SpsMuensterNamespace extends ManagedNamespace {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
     private final SubscriptionModel subscriptionModel;
 
-    static final String NAMESPACE_URI = "urn:muenster:beckhoff1";
+    static final String NAMESPACE_URI = "urn:muenster:sps";
     static final String NODEFOLDER = "data";
     static final String COUNTER = "pieces";
     static final String MESSAGE = "messageId";

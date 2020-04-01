@@ -14,8 +14,8 @@ public class Machine {
 
     private String machineId;
 
-    private static Integer basePort = 8080;
-    private static Integer basePortHttp = 8443;
+    private static Integer BASEPORT = 8081;
+    private static Integer BASEPORTHTTPS = 8443;
     private Integer port;
     private Integer httpsPort;
 
@@ -82,8 +82,8 @@ public class Machine {
         this.status = new Status();
         this.message = new Message();
         this.counter = new Counter();
-        this.port = basePort++;
-        this.httpsPort = basePortHttp++;
+        this.port = BASEPORT++;
+        this.httpsPort = BASEPORTHTTPS++;
     }
 
     public Long getId() {
