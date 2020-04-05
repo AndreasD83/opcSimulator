@@ -45,8 +45,8 @@ public class OpcController {
     )
     @PostMapping("/stop/{id}")
     public Status stop(@ApiParam(value = "ID der Maschine", required = true) @PathVariable("id") String id) {
-        if(logger.isDebugEnabled()){
-            logger.debug("stop {}", id);
+        if(logger.isInfoEnabled()){
+            logger.info("stop {}", id);
         }
         Machine machine = machineById(id);
         machine.setStatus(new Status(false));
@@ -57,14 +57,14 @@ public class OpcController {
     @ApiOperation(value = "Maschine stoppen und Fehler setzen",
             notes = "Maschine mit ID stoppen und Fehler mit Fehlernummer setzen"
     )
-    @PostMapping("/error/{id}/{messageId}")
-    public Status stop(@ApiParam(value = "ID der Maschine", required = true) @PathVariable("id") String id, @ApiParam(value = "ID der Fehlermeldung", required = true) @PathVariable("messageId") Integer messageId) {
-        if(logger.isDebugEnabled()){
-            logger.debug("error {},{}", id, messageId);
+    @PostMapping("/stop/{id}/{messageId}")
+    public Status stop(@ApiParam(value = "ID der Maschine", required = true) @PathVariable("id") String id, @ApiParam(value = "ID der Fehlermeldung", required = true) @PathVariable("messageId") String messageId) {
+        if(logger.isInfoEnabled()){
+            logger.info("error {},{}", id, messageId);
         }
         Machine machine = machineById(id);
         machine.setStatus(new Status(false));
-        machine.setMessage(new Message(messageId));
+        machine.setMessage(new Message(new Integer(messageId)));
         repository.save(machine);
         return machine.getStatus();
     }
@@ -74,8 +74,8 @@ public class OpcController {
     )
     @PostMapping("/start/{id}")
     public Status start(@ApiParam(value = "ID der Maschine", required = true) @PathVariable("id") String id) {
-        if(logger.isDebugEnabled()){
-            logger.debug("start {}", id);
+        if(logger.isInfoEnabled()){
+            logger.info("start {}", id);
         }
         Machine machine = machineById(id);
         machine.setStatus(new Status(true));
