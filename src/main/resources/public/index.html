@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Spring boot index page example</title>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <style>
+        button {
+            padding: 10px 20px;
+            border: 1px solid #ddd;
+            color: #333;
+            background-color:#fff;
+            border-radius: 4px;
+            font-size: 14px;
+            font-family: '微软雅黑',arail;
+            cursor: pointer;
+        &[disabled]{
+             cursor: not-allowed;
+         }
+        &.danger {
+             background-color: #ff4949;
+             color: #fff;
+         }
+        &.success {
+             background-color: #13ce66;
+             color: #fff;
+         }
+        &.info {
+             background-color: #50bfff;
+             color: #fff;
+         }
+        }
+    </style>
+</head>
+<body>
+<my-button type="danger" @click="toggleLable">{{label}}</my-button>
+<div id="app">
+    {{message}}
+    <input v-model="message">
+</div>
+
+<script type="application/javascript">
+    Vue.component('my-button', {
+        template: '\
+    <button class="normal"\
+      :class="type"\
+      :disabled="disabled"\
+      @click="callback($event)"\
+      >\
+        <slot></slot>\
+    </button>\
+  ',
+        props: {
+            type: String,
+            disabled: Boolean
+        },
+        methods: {
+            callback: function(e) {
+                this.$emit('click', e);
+            }
+        }
+    });
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            label: 'danger',
+            message: 'Hello Vue.js!'
+        },
+        mounted: function() {
+            // this.changeLabel();
+        },
+        methods: {
+            toggleLable: function(e) {
+                console.log(e.target.tagName);
+                if (this.label == 'danger') {
+                    this.label = "danger-changed";
+                } else {
+                    this.label = "danger";
+                }
+                //console.log(this.label);
+            },
+            callback: function() {
+                alert('llalalala');
+            }
+        }
+    });
+</script>
+</body>
+</html>

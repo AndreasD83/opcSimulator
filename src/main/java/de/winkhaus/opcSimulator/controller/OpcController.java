@@ -27,6 +27,7 @@ public class OpcController {
     @ApiOperation(value = "Liste aller Maschinen",
             notes = "Liste aller konfigurierten Maschinen zurückgeben"
     )
+    @CrossOrigin(origins = "*")
     @GetMapping("/machines")
     List<Machine> all() {
         return (List<Machine>) repository.findAll();

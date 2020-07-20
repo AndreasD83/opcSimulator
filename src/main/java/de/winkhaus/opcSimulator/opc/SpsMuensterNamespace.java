@@ -128,12 +128,6 @@ public class SpsMuensterNamespace extends ManagedNamespace {
                     public DataValue getValue(AttributeContext context, VariableNode node) throws UaException {
                         Machine machine = repository.findByMachineId(machineId);
 
-                        if(machine.getStatus().isActive()){
-                            Double oldValue = machine.getCounter().getPieces();
-                            Double newValue = oldValue + Double.valueOf(1);
-                            machine.getCounter().setPieces(newValue);
-                            repository.save(machine);
-                        }
                         return new DataValue(new Variant(machine.getCounter().getPieces()));
                     }
                 },
