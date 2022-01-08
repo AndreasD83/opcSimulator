@@ -27,7 +27,6 @@ public class OpcController {
     @ApiOperation(value = "Liste aller Maschinen",
             notes = "Liste aller konfigurierten Maschinen zurückgeben"
     )
-    @CrossOrigin(origins = "*")
     @GetMapping("/machines")
     List<Machine> all() {
         return (List<Machine>) repository.findAll();
@@ -81,6 +80,7 @@ public class OpcController {
         Machine machine = machineById(id);
         machine.setStatus(new Status(true));
         machine.setCounter(new Counter());
+        machine.setMessage(new Message(0)); //beim erneuten Sart Meldung: 0
         repository.save(machine);
         return machine.getStatus();
     }

@@ -26,6 +26,9 @@ public class Machine {
     private Counter counter;
 
     @OneToOne(cascade = CascadeType.ALL)
+    private Counter rejectAmountCounter;
+
+    @OneToOne(cascade = CascadeType.ALL)
     private Message message;
 
 
@@ -51,6 +54,14 @@ public class Machine {
 
     public void setCounter(Counter counter) {
         this.counter = counter;
+    }
+
+    public Counter getRejectAmountCounter() {
+        return rejectAmountCounter;
+    }
+
+    public void setRejectAmountCounter(Counter rejectAmountCounter) {
+        this.rejectAmountCounter = rejectAmountCounter;
     }
 
     public Message getMessage() {
@@ -82,6 +93,7 @@ public class Machine {
         this.status = new Status();
         this.message = new Message();
         this.counter = new Counter();
+        this.rejectAmountCounter = new Counter();
         this.port = BASEPORT++;
         this.httpsPort = BASEPORTHTTPS++;
     }

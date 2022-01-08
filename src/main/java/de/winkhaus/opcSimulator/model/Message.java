@@ -19,7 +19,7 @@ public class Message {
     }
 
     public Message(){
-        this.number = null;
+        this.number = 0;
         this.text = null;
     }
     public Integer getNumber() {

@@ -1,0 +1,6 @@
+sudo docker image ls
+sudo docker container ls
+sudo docker container stop <ID>
+mvn install
+sudo docker build -t dieckmannandreas/firstrepo:opcsim .
+sudo docker run -p 9090:8080 dieckmannandreas/firstrepo:opcsim
