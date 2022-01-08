@@ -157,7 +157,7 @@ public class MiloServer {
 
         OpcUaServer server = new OpcUaServer(serverConfig);
 
-        SpsMuensterNamespace spsMuensterNamespace = new SpsMuensterNamespace(server, repository, machine.getMachineId());
+        SpsPlantNamespace spsMuensterNamespace = new SpsPlantNamespace(server, repository, machine.getMachineId());
         spsMuensterNamespace.startup();
 
         return server;
@@ -199,7 +199,7 @@ public class MiloServer {
                         EndpointConfiguration.newBuilder()
                                 .setBindAddress(bindAddress)
                                 .setHostname(hostname)
-                                .setPath(String.format("/%s", SUBURL))
+                                .setPath(String.format("%s/%s", SUBURL, machine.getMachineId()))
                                 .setCertificate(certificate)
                                 .addTokenPolicies(
                                         USER_TOKEN_POLICY_ANONYMOUS,
@@ -234,7 +234,7 @@ public class MiloServer {
 
                 EndpointConfiguration.Builder discoveryBuilder =
                         builder.copy()
-                                .setPath(String.format("/%s/%s", SUBURL, SUBURLDISCOVERY))
+                                .setPath(String.format("%s/%s", SUBURLDISCOVERY, machine.getMachineId()))
                                 .setSecurityPolicy(SecurityPolicy.None)
                                 .setSecurityMode(MessageSecurityMode.None);
 
